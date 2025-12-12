@@ -1,0 +1,63 @@
+# Core GUI and Database
+customtkinter==5.2.2
+pymongo==4.6.3
+python-dotenv==1.0.1
+darkdetect==0.8.0
+
+# Computer Vision and Hand Tracking
+opencv-python==4.9.0.80
+opencv-contrib-python==4.11.0.86
+mediapipe==0.10.11
+numpy==1.24.4
+
+# Image Processing
+Pillow==12.0.0
+
+# Input Control Libraries
+pyautogui==0.9.54
+pynput==1.7.7
+macmouse==0.7.4
+keyboard==0.13.5
+MouseInfo==0.1.3
+PyMsgBox==2.0.1
+PyRect==0.2.0
+PyScreeze==1.0.1
+pytweening==1.2.0
+pyperclip==1.11.0
+
+# macOS-specific System Control
+pyobjc-core==10.1
+pyobjc-framework-Cocoa==10.1
+pyobjc-framework-Quartz==10.1
+rubicon-objc==0.4.7
+PyGetWindow==0.0.9
+
+# Audio Control
+sounddevice==0.5.3
+
+# Mediapipe Dependencies
+absl-py==2.3.1
+attrs==25.4.0
+flatbuffers==25.9.23
+protobuf==3.20.3
+jax==0.4.38
+jaxlib==0.4.38
+ml_dtypes==0.5.4
+opt_einsum==3.4.0
+
+# Math and Scientific Computing
+scipy==1.15.3
+matplotlib==3.10.7
+contourpy==1.3.2
+cycler==0.12.1
+fonttools==4.60.1
+kiwisolver==1.4.9
+pyparsing==3.2.5
+python-dateutil==2.9.0.post0
+
+# Utility Libraries
+cffi==2.0.0
+pycparser==2.23
+dnspython==2.8.0
+packaging==25.0
+six==1.17.0

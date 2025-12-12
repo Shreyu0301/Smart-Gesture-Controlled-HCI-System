@@ -1,0 +1,201 @@
+@startuml
+title Smart Gesture-Controlled HCI System - Sequence Diagram\nGesture Detection and Execution Flow
+
+actor User
+participant "GUI\n(main.py)" as GUI
+participant "GestureControl" as GC
+participant "HandTracker" as HT
+participant "MediaPipe" as MP
+participant "Control Module\n(Mouse/Media/Browser...)" as CM
+participant "MongoDB\nAtlas" as DB
+participant "System APIs\n(PyAutoGUI)" as API
+
+== Application Initialization ==
+User -> GUI: Launch application
+activate GUI
+GUI -> DB: Connect to MongoDB
+activate DB
+DB --> GUI: Connection established
+deactivate DB
+
+GUI -> DB: Get user configuration
+activate DB
+DB --> GUI: User gesture mappings
+deactivate DB
+
+GUI --> User: Display main menu
+deactivate GUI
+
+== Gesture Control Activation ==
+User -> GUI: Click "Activate" button
+activate GUI
+GUI -> GC: Create GestureControl()
+activate GC
+
+GC -> HT: Initialize HandTracker()
+activate HT
+HT -> MP: Initialize MediaPipe Hands
+activate MP
+MP --> HT: Model loaded
+deactivate MP
+HT --> GC: Tracker ready
+deactivate HT
+
+GC -> GC: Start background thread
+GC --> GUI: Thread started
+GUI --> User: Status: "Active"
+deactivate GUI
+
+== Real-Time Gesture Processing Loop ==
+loop Every frame (30 FPS)
+    GC -> GC: Read camera frame
+    GC -> HT: find_hands(frame)
+    activate HT
+    
+    HT -> MP: Process frame
+    activate MP
+    MP -> MP: Detect hands\n(BlazePalm detector)
+    MP --> HT: Hand landmarks [21 points]
+    deactivate MP
+    
+    alt Hands detected
+        HT -> HT: Extract landmark coordinates
+        HT --> GC: hands_data {left, right}
+        deactivate HT
+        
+        == Left Hand Processing (Mode Selection) ==
+        GC -> HT: detect_raised_fingers(left_hand, "left")
+        activate HT
+        HT -> HT: Analyze finger positions\nrelative to palm
+        HT --> GC: [thumb, index, middle, ring, little]
+        deactivate HT
+        
+        GC -> GC: detect_gesture(finger_state)
+        GC -> GC: Map to control mode
+        
+        note right
+            Gesture to Mode Mapping:
+            [0,1,0,0,0] -> Mouse Control
+            [0,1,1,0,0] -> Media Control
+            [0,1,1,1,0] -> Browser Control
+            [0,1,1,1,1] -> Virtual Keyboard
+            [1,0,0,0,0] -> Brightness Control
+            [1,1,0,0,0] -> Window Control
+            [1,1,1,0,0] -> Game Control
+        end note
+        
+        == Right Hand Processing (Action Execution) ==
+        GC -> HT: detect_raised_fingers(right_hand, "right")
+        activate HT
+        HT --> GC: [thumb, index, middle, ring, little]
+        deactivate HT
+        
+        == Gesture Stability Check ==
+        GC -> GC: Increment stability_counter
+        
+        alt stability_counter >= threshold (2 frames)
+            GC -> GC: Confirm gesture
+            
+            == Mode-Specific Action Dispatch ==
+            alt Mode: Mouse Control
+                GC -> CM: MouseControl.control_mouse(fingers, frame)
+                activate CM
+                CM -> HT: find_position(frame)
+                activate HT
+                HT --> CM: Hand position coordinates
+                deactivate HT
+                CM -> API: pyautogui.move(x, y)
+                activate API
+                API --> CM: Mouse moved
+                deactivate API
+                CM --> GC: Action completed
+                deactivate CM
+                
+            else Mode: Media Control
+                GC -> CM: MediaControl.control_volume(frame)
+                activate CM
+                CM -> HT: Get thumb-index distance
+                activate HT
+                HT --> CM: distance value
+                deactivate HT
+                CM -> CM: Calculate volume level\ninterp(distance, [0.15, 1.5], [0, 100])
+                CM -> API: Set system volume
+                activate API
+                API --> CM: Volume adjusted
+                deactivate API
+                CM --> GC: Action completed
+                deactivate CM
+                
+            else Mode: Browser Control
+                GC -> CM: BrowserControl.tab_nav(fingers)
+                activate CM
+                CM -> API: pyautogui.hotkey('ctrl', 'tab')
+                activate API
+                API --> CM: Tab switched
+                deactivate API
+                CM --> GC: Action completed
+                deactivate CM
+                
+            else Mode: Window Control
+                GC -> CM: AppControl.window_nav(fingers)
+                activate CM
+                CM -> API: keyboard.send('alt+tab')
+                activate API
+                API --> CM: Window switched
+                deactivate API
+                CM --> GC: Action completed
+                deactivate CM
+                
+            else Mode: Virtual Keyboard
+                GC -> CM: VirtualKeyboard.run(frame)
+                activate CM
+                CM -> CM: Draw keyboard on frame
+                CM -> HT: Get index finger position
+                activate HT
+                HT --> CM: (x, y) coordinates
+                deactivate HT
+                CM -> CM: Detect button click
+                alt Button clicked
+                    CM -> API: pynput.keyboard.press(key)
+                    activate API
+                    API --> CM: Key pressed
+                    deactivate API
+                end
+                CM --> GC: Frame with keyboard overlay
+                deactivate CM
+            end
+            
+            GC -> GC: Reset stability_counter
+            GC -> GC: Update current_mode & current_action
+            
+        else stability_counter < threshold
+            GC -> GC: Wait for stable gesture
+        end
+        
+    else No hands detected
+        GC -> GC: current_mode = "Standby"
+        GC -> GC: current_action = "Waiting for gesture..."
+    end
+    
+    == GUI Update ==
+    GC -> GUI: Update video frame & status
+    activate GUI
+    GUI -> GUI: Display frame on canvas
+    GUI -> GUI: Update mode label
+    GUI -> GUI: Update action label
+    GUI --> User: Visual feedback
+    deactivate GUI
+end
+
+== Deactivation ==
+User -> GUI: Click "Deactivate" button
+activate GUI
+GUI -> GC: Set runFlag = False
+GC -> GC: Exit control loop
+GC -> GC: Release camera
+GC --> GUI: Thread terminated
+GUI --> User: Status: "Inactive"
+deactivate GUI
+deactivate GC
+
+@enduml

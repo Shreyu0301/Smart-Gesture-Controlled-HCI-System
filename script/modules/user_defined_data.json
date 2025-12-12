@@ -1,0 +1,26 @@
+{
+  "_id": "088fc35cc6c7-Rohan",
+  "name": "Rohan",
+  "userDefinedControls": {
+    "index": [
+      "mspaint.exe"
+    ],
+    "index and middle": [
+      "mspaint.exe"
+    ],
+    "index, middle and ring": [
+      "chrome.exe",
+      "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    ],
+    "index, middle, ring and little": [
+      "code.exe",
+      "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+      "C:\\Program Files\\Microsoft VS Code\\Code.exe"
+    ],
+    "thumb": [
+      "discord.exe",
+      "C:\\Users\\%USERNAME%\\AppData\\Local\\Discord\\app-1.0.9162\\Discord.exe"
+    ]
+  }
+}

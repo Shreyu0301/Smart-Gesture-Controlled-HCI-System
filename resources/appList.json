@@ -1,0 +1,199 @@
+[
+    {
+        "displayName": "Explorer",
+        "shellName": [
+            "explorer.exe",
+            "microsoft.windows.camera:"
+        ]
+    },
+    {
+        "displayName": "Calculator",
+        "shellName": [
+            "calc.exe"
+        ]
+    },
+    {
+        "displayName": "Notepad",
+        "shellName": [
+            "notepad.exe"
+        ]
+    },
+    {
+        "displayName": "Settings",
+        "shellName": [
+            "explorer.exe",
+            "ms-settings:"
+        ]
+    },
+    {
+        "displayName": "Photos",
+        "shellName": [
+            "explorer.exe",
+            "microsoft.windows.photos:"
+        ]
+    },
+    {
+        "displayName": "Paint",
+        "shellName": [
+            "mspaint.exe"
+        ]
+    },
+    {
+        "displayName": "Control Panel",
+        "shellName": [
+            "control.exe"
+        ]
+    },
+    {
+        "displayName": "Windows Terminal",
+        "shellName": [
+            "wt.exe"
+        ]
+    },
+    {
+        "displayName": "Wordpad",
+        "shellName": [
+            "write.exe"
+        ]
+    },
+    {
+        "displayName": "Google Chrome",
+        "shellName": [
+            "chrome.exe",
+            "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+            "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+        ]
+    },
+    {
+        "displayName": "Microsoft Edge",
+        "shellName": [
+            "msedge.exe",
+            "microsoft-edge:",
+            "C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe"
+        ]
+    },
+    {
+        "displayName": "Firefox",
+        "shellName": [
+            "firefox.exe",
+            "C:\\Program Files\\Mozilla Firefox\\firefox.exe",
+            "C:\\Program Files (x86)\\Mozilla Firefox\\firefox.exe"
+        ]
+    },
+    {
+        "displayName": "Visual Studio Code",
+        "shellName": [
+            "code.exe",
+            "C:\\Users\\%USERNAME%\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe",
+            "C:\\Program Files\\Microsoft VS Code\\Code.exe"
+        ]
+    },
+    {
+        "displayName": "Spotify",
+        "shellName": [
+            "spotify.exe",
+            "C:\\Users\\%USERNAME%\\AppData\\Roaming\\Spotify\\Spotify.exe"
+        ]
+    },
+    {
+        "displayName": "Discord",
+        "shellName": [
+            "discord.exe",
+            "C:\\Users\\%USERNAME%\\AppData\\Local\\Discord\\app-1.0.9162\\Discord.exe"
+        ]
+    },
+    {
+        "displayName": "Zoom",
+        "shellName": [
+            "zoom.exe",
+            "C:\\Users\\%USERNAME%\\AppData\\Roaming\\Zoom\\bin\\Zoom.exe"
+        ]
+    },
+    {
+        "displayName": "Microsoft Teams",
+        "shellName": [
+            "teams.exe",
+            "ms-teams:",
+            "C:\\Users\\%USERNAME%\\AppData\\Local\\Microsoft\\Teams\\current\\Teams.exe"
+        ]
+    },
+    {
+        "displayName": "VLC Media Player",
+        "shellName": [
+            "vlc.exe",
+            "C:\\Program Files\\VideoLAN\\VLC\\vlc.exe",
+            "C:\\Program Files (x86)\\VideoLAN\\VLC\\vlc.exe"
+        ]
+    },
+    {
+        "displayName": "Task Manager",
+        "shellName": [
+            "taskmgr.exe"
+        ]
+    },
+    {
+        "displayName": "Command Prompt",
+        "shellName": [
+            "cmd.exe"
+        ]
+    },
+    {
+        "displayName": "PowerShell",
+        "shellName": [
+            "powershell.exe"
+        ]
+    },
+    {
+        "displayName": "Microsoft Word",
+        "shellName": [
+            "winword.exe",
+            "C:\\Program Files\\Microsoft Office\\root\\Office16\\WINWORD.EXE"
+        ]
+    },
+    {
+        "displayName": "Microsoft Excel",
+        "shellName": [
+            "excel.exe",
+            "C:\\Program Files\\Microsoft Office\\root\\Office16\\EXCEL.EXE"
+        ]
+    },
+    {
+        "displayName": "Microsoft PowerPoint",
+        "shellName": [
+            "powerpnt.exe",
+            "C:\\Program Files\\Microsoft Office\\root\\Office16\\POWERPNT.EXE"
+        ]
+    },
+    {
+        "displayName": "Microsoft Outlook",
+        "shellName": [
+            "outlook.exe",
+            "C:\\Program Files\\Microsoft Office\\root\\Office16\\OUTLOOK.EXE"
+        ]
+    },
+    {
+        "displayName": "Snipping Tool",
+        "shellName": [
+            "SnippingTool.exe",
+            "ms-screenclip:"
+        ]
+    },
+    {
+        "displayName": "Paint 3D",
+        "shellName": [
+            "ms-paint:"
+        ]
+    },
+    {
+        "displayName": "Mail",
+        "shellName": [
+            "mailto:"
+        ]
+    },
+    {
+        "displayName": "Microsoft Store",
+        "shellName": [
+            "ms-windows-store:"
+        ]
+    }
+]

@@ -1,0 +1,157 @@
+@startuml
+title Smart Gesture-Controlled HCI System - Use Case Diagram
+
+left to right direction
+skinparam packageStyle rectangle
+
+actor "End User" as User
+actor "System Administrator" as Admin #LightBlue
+
+rectangle "Smart Gesture-Controlled HCI System" {
+    
+    package "Gesture Control Features" {
+        usecase "Control Mouse Cursor" as UC1
+        usecase "Adjust System Volume" as UC2
+        usecase "Control Screen Brightness" as UC3
+        usecase "Navigate Browser Tabs" as UC4
+        usecase "Switch Windows/Applications" as UC5
+        usecase "Play Games with Gestures" as UC6
+        usecase "Type with Virtual Keyboard" as UC7
+        usecase "Launch Custom Applications" as UC8
+    }
+    
+    package "Configuration Management" {
+        usecase "Customize Gesture Mappings" as UC9
+        usecase "View Tutorial Animations" as UC10
+        usecase "Sync Configuration to Cloud" as UC11
+        usecase "Load Saved Configuration" as UC12
+    }
+    
+    package "System Management" {
+        usecase "Activate/Deactivate\nGesture Recognition" as UC13
+        usecase "Monitor Camera Feed" as UC14
+        usecase "View Current Mode & Action" as UC15
+        usecase "Manage MongoDB Connection" as UC16
+    }
+    
+    package "Hand Tracking Core" {
+        usecase "Detect Hand Landmarks" as UC17
+        usecase "Classify Finger States" as UC18
+        usecase "Stabilize Gesture Detection" as UC19
+    }
+    
+    package "Platform Integration" {
+        usecase "Execute System Commands" as UC20
+        usecase "Control Audio APIs" as UC21
+        usecase "Manage Window Focus" as UC22
+        usecase "Simulate Input Events" as UC23
+    }
+}
+
+' User interactions
+User --> UC1
+User --> UC2
+User --> UC3
+User --> UC4
+User --> UC5
+User --> UC6
+User --> UC7
+User --> UC8
+User --> UC9
+User --> UC10
+User --> UC13
+User --> UC14
+User --> UC15
+
+' Admin interactions
+Admin --> UC11
+Admin --> UC12
+Admin --> UC16
+
+' Use case relationships
+UC1 ..> UC17 : <<uses>>
+UC1 ..> UC18 : <<uses>>
+UC1 ..> UC19 : <<uses>>
+UC1 ..> UC23 : <<uses>>
+
+UC2 ..> UC17 : <<uses>>
+UC2 ..> UC18 : <<uses>>
+UC2 ..> UC21 : <<uses>>
+
+UC3 ..> UC17 : <<uses>>
+UC3 ..> UC18 : <<uses>>
+UC3 ..> UC21 : <<uses>>
+
+UC4 ..> UC17 : <<uses>>
+UC4 ..> UC18 : <<uses>>
+UC4 ..> UC22 : <<uses>>
+UC4 ..> UC23 : <<uses>>
+
+UC5 ..> UC17 : <<uses>>
+UC5 ..> UC18 : <<uses>>
+UC5 ..> UC22 : <<uses>>
+UC5 ..> UC23 : <<uses>>
+
+UC6 ..> UC17 : <<uses>>
+UC6 ..> UC18 : <<uses>>
+UC6 ..> UC23 : <<uses>>
+
+UC7 ..> UC17 : <<uses>>
+UC7 ..> UC18 : <<uses>>
+UC7 ..> UC22 : <<uses>>
+UC7 ..> UC23 : <<uses>>
+
+UC8 ..> UC17 : <<uses>>
+UC8 ..> UC18 : <<uses>>
+UC8 ..> UC20 : <<uses>>
+UC8 ..> UC12 : <<uses>>
+
+UC9 ..> UC11 : <<includes>>
+UC9 ..> UC12 : <<extends>>
+
+UC13 ..> UC17 : <<uses>>
+UC13 ..> UC14 : <<includes>>
+
+UC14 ..> UC15 : <<includes>>
+
+UC11 ..> UC16 : <<uses>>
+UC12 ..> UC16 : <<uses>>
+
+' Notes
+note right of UC1
+  Precise cursor control with
+  hand position tracking.
+  Supports click & scroll.
+end note
+
+note right of UC2
+  Pinch gesture (thumb + index)
+  adjusts volume 0-100%.
+  Platform-specific APIs.
+end note
+
+note right of UC7
+  Full QWERTY on-screen keyboard.
+  Auto-focus target application.
+  528 lines of code.
+end note
+
+note bottom of UC17
+  MediaPipe Hands provides
+  21-point 3D landmark detection
+  at 30 FPS with <16ms latency.
+end note
+
+note right of UC9
+  5 programmable gesture slots.
+  Choose from 199 available apps.
+  Synced to MongoDB Atlas.
+end note
+
+note bottom of UC19
+  2-frame stability threshold
+  prevents false positives.
+  Gesture must be held steady.
+end note
+
+@enduml

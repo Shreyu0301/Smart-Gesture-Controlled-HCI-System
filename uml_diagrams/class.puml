@@ -1,0 +1,236 @@
+@startuml
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+title Smart Gesture-Controlled HCI System - Class Diagram
+
+' Core Classes
+package "Core Engine" {
+    class GestureControl {
+        - prev_gesture: str
+        - current_gesture: str
+        - mouse_control_active: bool
+        - runFlag: bool
+        - last_action_key: str
+        - action_cooldown: int
+        - gesture_stability_counter: int
+        - gesture_stability_threshold: int
+        - current_frame: Frame
+        - current_mode: str
+        - current_action: str
+        - cap: VideoCapture
+        - hand_tracker: HandTracker
+        - media_control_instance: MediaControl
+        - virtual_keyboard: VirtualKeyboard
+        + __init__(runFlag: bool)
+        + detect_gesture(raised_fingers: tuple) : str
+        + get_keyboard_target_app() : str
+        + run() : void
+    }
+
+    class HandTracker {
+        - mp_hands: object
+        - hands: object
+        - mp_drawing: object
+        - frame_counter: int
+        - cooldown_frames: int
+        - smooth_cooldown_frames: int
+        + __init__()
+        + detect_raised_fingers(landmarks, hand_type: str, mouse_control: bool) : List[int]
+        + find_position(frame, draw: bool) : List[tuple]
+        + find_hands(frame, draw: bool) : tuple
+    }
+}
+
+' Control Modules
+package "Control Modules" {
+    class MouseControl {
+        - mouse: object
+        - hand_tracker: HandTracker
+        - os: str
+        - screen_width: int
+        - screen_height: int
+        - w_cam: int
+        - h_cam: int
+        - frame_r: int
+        - p_loc_x: int
+        - p_loc_y: int
+        - c_loc_x: int
+        - c_loc_y: int
+        + __init__(hand_tracker: HandTracker)
+        + control_mouse(raised_fingers: List, frame) : void
+    }
+
+    class MediaControl {
+        - hand_tracker: HandTracker
+        - _last_volume: int
+        - _volume_cooldown: float
+        - _last_brightness: int
+        - _brightness_cooldown: float
+        + __init__(hand_tracker: HandTracker)
+        + control_volume(frame) : void
+        + control_brightness(frame) : void
+    }
+
+    class BrowserControl {
+        - hand_tracker: HandTracker
+        - browser_names: List[str]
+        - browser_focused: bool
+        + __init__(hand_tracker: HandTracker)
+        + focus_browser(force: bool) : bool
+        + tab_nav(raised_fingers: List) : void
+    }
+
+    class AppControl {
+        - hand_tracker: HandTracker
+        - window_list: List
+        - current_window_index: int
+        + __init__(hand_tracker: HandTracker)
+        + window_nav(raised_fingers: List) : void
+        - _switch_window_forward() : void
+        - _switch_window_backward() : void
+    }
+
+    class GameControl {
+        - hand_tracker: HandTracker
+        - last_finger_position: str
+        + __init__(hand_tracker: HandTracker)
+        + game_nav(raised_fingers: List) : void
+    }
+
+    class VirtualKeyboard {
+        - hand_tracker: HandTracker
+        - keyboard: Controller
+        - text: str
+        - delay: int
+        - target_app_name: str
+        - target_hwnd: int
+        - last_focus_attempt: float
+        - prev_kb_x: int
+        - prev_kb_y: int
+        - smoothing_factor: float
+        - caps_lock: bool
+        - buttonList: List[Button]
+        - window_name: str
+        - window_created: bool
+        + __init__(hand_tracker, target_app_name: str)
+        + create_keyboard_layout() : List[Button]
+        + focus_target_window() : bool
+        + draw_keyboard(frame) : Frame
+        + run(frame) : Frame
+    }
+
+    class Button {
+        - pos: tuple
+        - size: List[int]
+        - text: str
+        - special: bool
+        + __init__(pos: tuple, text: str, size: List, special: bool)
+    }
+
+    class UserDefControls {
+        - hand_tracker: HandTracker
+        + __init__(hand_tracker: HandTracker)
+        + user_controls(raised_fingers: List) : void
+    }
+
+    class GestureAnimation {
+        - frame_list: List
+        - current_frame: int
+        - delay: int
+        - animation_label: CTkLabel
+        + __init__(gif_path: str, canvas: CTkLabel)
+        + load_frames() : void
+        + update_animation() : void
+        + stop_animation() : void
+    }
+}
+
+' External Libraries
+package "External Dependencies" {
+    class MediaPipe {
+        + Hands()
+        + solutions.hands
+        + solutions.drawing_utils
+    }
+
+    class OpenCV {
+        + VideoCapture()
+        + flip()
+        + cvtColor()
+        + resize()
+    }
+
+    class PyAutoGUI {
+        + size()
+        + hotkey()
+        + press()
+        + click()
+        + move()
+    }
+
+    class MongoDB {
+        + MongoClient()
+        + find_one()
+        + insert_one()
+        + update_one()
+    }
+
+    class CustomTkinter {
+        + CTk()
+        + CTkFrame()
+        + CTkButton()
+        + CTkLabel()
+    }
+}
+
+' Relationships
+GestureControl "1" *-- "1" HandTracker : uses
+GestureControl "1" *-- "1" MediaControl : creates
+GestureControl "1" *-- "1" VirtualKeyboard : creates
+GestureControl ..> MouseControl : instantiates
+GestureControl ..> BrowserControl : instantiates
+GestureControl ..> AppControl : instantiates
+GestureControl ..> GameControl : instantiates
+GestureControl ..> UserDefControls : instantiates
+
+HandTracker ..> MediaPipe : uses
+GestureControl ..> OpenCV : uses
+
+MouseControl --> HandTracker : uses
+MediaControl --> HandTracker : uses
+BrowserControl --> HandTracker : uses
+AppControl --> HandTracker : uses
+GameControl --> HandTracker : uses
+VirtualKeyboard --> HandTracker : uses
+UserDefControls --> HandTracker : uses
+
+VirtualKeyboard "1" *-- "*" Button : contains
+
+MouseControl ..> PyAutoGUI : uses
+MediaControl ..> PyAutoGUI : uses
+BrowserControl ..> PyAutoGUI : uses
+AppControl ..> PyAutoGUI : uses
+GameControl ..> PyAutoGUI : uses
+
+GestureAnimation ..> CustomTkinter : uses
+
+note right of GestureControl
+    Main controller implementing
+    state machine for mode management.
+    Processes 30 FPS video stream.
+end note
+
+note right of HandTracker
+    Wraps MediaPipe Hands for
+    21-point landmark detection.
+    Implements finger state detection.
+end note
+
+note bottom of VirtualKeyboard
+    528 lines - Full QWERTY keyboard
+    with Windows focus management.
+    Includes caps lock & special keys.
+end note
+
+@enduml

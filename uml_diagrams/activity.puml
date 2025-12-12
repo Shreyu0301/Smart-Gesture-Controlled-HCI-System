@@ -1,0 +1,240 @@
+@startuml
+title Smart Gesture-Controlled HCI System - Activity Diagram
+skinparam ActivityBackgroundColor #E8F5E9
+skinparam ActivityBorderColor #388E3C
+skinparam DecisionBackgroundColor #FFF9C4
+skinparam DecisionBorderColor #F57F17
+
+start
+
+:User launches application;
+
+:Initialize CustomTkinter GUI;
+:Connect to MongoDB Atlas;
+:Generate unique device ID\n(MAC + hostname);
+
+if (User config exists\nin database?) then (yes)
+    :Load existing configuration;
+else (no)
+    :Create new user document;
+    :Initialize default gesture mappings;
+    :Save to MongoDB;
+endif
+
+:Display main menu\n(Menu / Customize / Tutorial);
+
+partition "Main Menu Loop" {
+    repeat
+        if (Button clicked?) then (Activate)
+            #LightBlue:Start Gesture Control;
+            detach
+        elseif (Customize Gestures)
+            #LightCyan:Show customization screen;
+            detach
+        elseif (Tutorial)
+            #LightYellow:Show tutorial animations;
+            detach
+        elseif (Exit)
+            #Pink:Close application;
+            stop
+        endif
+    repeat while (Application running?)
+}
+
+partition "Gesture Control Thread" {
+    :Initialize camera (640x480 @ 30 FPS);
+    :Create HandTracker with MediaPipe;
+    :Create MediaControl instance;
+    :Create VirtualKeyboard instance;
+    
+    repeat
+        :Capture video frame;
+        
+        if (Frame captured?) then (yes)
+            :Flip frame horizontally;
+            :Send to MediaPipe for processing;
+            
+            if (Hands detected?) then (yes)
+                fork
+                    partition "Left Hand Processing" {
+                        :Extract left hand landmarks;
+                        :Calculate finger states\n[thumb, index, middle, ring, little];
+                        
+                        if (Gesture stable\nfor 2 frames?) then (yes)
+                            :Classify gesture;
+                            
+                            switch (Gesture?)
+                            case ( [0,1,0,0,0] )
+                                :**MODE: Mouse Control**;
+                            case ( [0,1,1,0,0] )
+                                :**MODE: Media Control**;
+                            case ( [0,1,1,1,0] )
+                                :**MODE: Browser Control**;
+                            case ( [0,1,1,1,1] )
+                                :**MODE: Virtual Keyboard**;
+                            case ( [1,0,0,0,0] )
+                                :**MODE: Brightness Control**;
+                            case ( [1,1,0,0,0] )
+                                :**MODE: Window Control**;
+                            case ( [1,1,1,0,0] )
+                                :**MODE: Game Control**;
+                            case ( default )
+                                :**MODE: User-Defined Controls**;
+                            endswitch
+                        else (no)
+                            :Wait for stable gesture;
+                        endif
+                    }
+                fork again
+                    partition "Right Hand Processing" {
+                        :Extract right hand landmarks;
+                        :Calculate finger states;
+                        
+                        if (Gesture stable?) then (yes)
+                            switch (Current Mode?)
+                            case ( **Mouse Control** )
+                                if (Index + Middle raised?) then (yes)
+                                    :Calculate hand position;
+                                    :Map to screen coordinates;
+                                    :Move mouse cursor;
+                                elseif (Index + Middle + Ring?)
+                                    :Perform left click;
+                                elseif (Thumb + Index?)
+                                    :Perform right click;
+                                elseif (All fingers?)
+                                    :Enable scroll mode;
+                                endif
+                                
+                            case ( **Media Control** )
+                                :Measure thumb-index distance;
+                                :Calculate target volume\n(0-100 based on pinch);
+                                if (Cooldown expired?) then (yes)
+                                    if (Windows?) then (yes)
+                                        :Adjust volume via PyCaw;
+                                    else (macOS)
+                                        :Adjust volume via AppleScript;
+                                    endif
+                                endif
+                                
+                            case ( **Browser Control** )
+                                if (Little finger raised?) then (yes)
+                                    :Focus browser window;
+                                    :Send Ctrl+Tab (next tab);
+                                elseif (Thumb raised?)
+                                    :Send Ctrl+Shift+Tab (prev tab);
+                                elseif (Index raised?)
+                                    :Scroll down;
+                                elseif (Index + Middle?)
+                                    :Scroll up;
+                                elseif (All fingers?)
+                                    :Zoom in/out;
+                                endif
+                                
+                            case ( **Window Control** )
+                                if (Little finger raised?) then (yes)
+                                    :Send Alt+Tab (next window);
+                                elseif (Thumb raised?)
+                                    :Send Alt+Shift+Tab (prev);
+                                elseif (All fingers?)
+                                    :Send Win+D (show desktop);
+                                endif
+                                
+                            case ( **Game Control** )
+                                if (Index raised?) then (yes)
+                                    :Send Up arrow / W key;
+                                elseif (Index + Middle?)
+                                    :Send Down arrow / S key;
+                                elseif (Thumb?)
+                                    :Send Left arrow / A key;
+                                elseif (Little finger?)
+                                    :Send Right arrow / D key;
+                                endif
+                                
+                            case ( **Virtual Keyboard** )
+                                :Draw QWERTY keyboard on frame;
+                                :Get index finger position;
+                                :Map to keyboard button;
+                                if (Button clicked?) then (yes)
+                                    :Focus target application;
+                                    :Send key press via pynput;
+                                    :Update text display;
+                                endif
+                                
+                            case ( **Brightness Control** )
+                                :Measure thumb-index distance;
+                                if (Windows?) then (yes)
+                                    :Adjust via WMI / screen_brightness_control;
+                                else (macOS)
+                                    :Adjust via brightness CLI;
+                                endif
+                                
+                            case ( **User-Defined** )
+                                :Check gesture mapping in config;
+                                if (App configured?) then (yes)
+                                    :Launch application via subprocess;
+                                endif
+                            endswitch
+                            
+                            :Reset gesture stability counter;
+                            :Update current_action display;
+                        endif
+                    }
+                end fork
+                
+            else (no hands)
+                :Set mode to "Standby";
+                :Action: "Waiting for gesture...";
+            endif
+            
+            :Update GUI video frame;
+            :Update mode & action labels;
+            :Store frame for display;
+            
+        else (capture failed)
+            :Log error;
+        endif
+        
+    repeat while (runFlag == True?)
+    
+    :Release camera resources;
+    :Clean up MediaPipe;
+    :Exit gesture control thread;
+}
+
+partition "Customization Flow" {
+    :Display gesture dropdown\n(5 configurable gestures);
+    :Display app list dropdown\n(199 available apps);
+    
+    repeat
+        if (User selects gesture\nand app?) then (yes)
+            :Map gesture to app shell command;
+            :Add to temporary config;
+        endif
+    repeat while (Save clicked?) is (no)
+    
+    :Update user_defined_data.json;
+    :Sync configuration to MongoDB;
+    :Show success message;
+    :Return to main menu;
+}
+
+partition "Tutorial Flow" {
+    :Load animation data from anim_data.json;
+    :Display gesture dropdown;
+    
+    repeat
+        if (Gesture selected?) then (yes)
+            :Load corresponding GIF (1-19.gif);
+            :Create GestureAnimation instance;
+            :Play animation loop;
+            :Display gesture description;
+        endif
+    repeat while (Back clicked?) is (no)
+    
+    :Stop animation;
+    :Return to main menu;
+}
+
+stop
+
+@enduml
