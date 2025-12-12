@@ -7,9 +7,9 @@
 [![MediaPipe](https://img.shields.io/badge/MediaPipe-0.10.11-orange.svg)](https://mediapipe.dev/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**👨‍💻 Developed by:** [Rohan S.](https://www.linkedin.com/in/rohan-s-43201a2a3)  
-**📧 Contact:** [rohanrony8431@gmail.com](mailto:rohanrony8431@gmail.com)  
-**💻 GitHub:** [github.com/Rohan9731](https://github.com/Rohan9731)
+**👨‍💻 Developed by:** [SHREYAS M P.](https://www.linkedin.com/in/shreyas-m-p-2408a7260/)  
+**📧 Contact:** [shreyas.cta61@gmail.com](mailto:shreyas.cta61@gmail.com)  
+**💻 GitHub:** [github.com/Shreyu0301](https://github.com/Shreyu0301)
 
 ---
 
