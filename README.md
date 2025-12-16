@@ -722,11 +722,11 @@ class HandTracker:
 
 ## 👨‍💻 Author
 
-**Rohan S.**
+**SHREYAS M P.**
 
-- 🔗 LinkedIn: [linkedin.com/in/rohan-s-43201a2a3](https://www.linkedin.com/in/rohan-s-43201a2a3)
-- 💻 GitHub: [github.com/Rohan9731](https://github.com/Rohan9731)
-- 📧 Email: [rohanrony8431@gmail.com](mailto:rohanrony8431@gmail.com)
+- 🔗 LinkedIn: [linkedin.com/in/shreyas-m-p-2408a7260](((https://www.linkedin.com/in/shreyas-m-p-2408a7260/))
+- 💻 GitHub: [github.com/Shreyu0301](https://github.com/Shreyu0301)
+- 📧 Email: [shreyas.cta61@gmail.com](mailto:shreyas.cta61@gmail.com)
 
 ---
 
@@ -752,14 +752,14 @@ This project is developed as an academic project for educational purposes.
 
 ### 🌟 Built with passion for Computer Vision & Human-Computer Interaction
 
-**Developed by:** [Rohan S.](https://www.linkedin.com/in/rohan-s-43201a2a3)
+**Developed by:** [Shreyas M P.](https://www.linkedin.com/in/shreyas-m-p-2408a7260)
 
 **Showcasing expertise in:** Python • Computer Vision • ML Integration • GUI Development • Cloud Architecture • System Programming
 
 ---
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/rohan-s-43201a2a3)
-[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/Rohan9731)
-[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail)](mailto:rohanrony8431@gmail.com)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue?style=for-the-badge&logo=linkedin)](https://www.linkedin.com/in/shreyas-m-p-2408a7260)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-black?style=for-the-badge&logo=github)](https://github.com/Shreyu0301)
+[![Email](https://img.shields.io/badge/Email-Contact-red?style=for-the-badge&logo=gmail)](mailto:shreyas.cta61@gmail.com)
 
 </div>
