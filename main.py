@@ -1,10 +1,10 @@
 """
 Smart Gesture-Controlled Human-Computer Interaction System
 
-Author: Rohan S.
-LinkedIn: https://www.linkedin.com/in/rohan-s-43201a2a3
-GitHub: https://github.com/Rohan9731
-Email: rohanrony8431@gmail.com
+Author: Shreyas M P.
+LinkedIn: shreyas-m-prakash-reddy-2408a7260/
+GitHub: https://github.com/Shreyu0301
+Email: shreyas.cta61@gmail.com
 
 Description: Enterprise-grade HCI system for touchless computer control
 through natural hand gestures using computer vision and machine learning.
