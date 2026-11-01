@@ -2,7 +2,7 @@
 Smart Gesture-Controlled Human-Computer Interaction System
 
 Author: Shreyas M P.
-LinkedIn: shreyas-m-prakash-reddy-2408a7260/
+LinkedIn: https://www.linkedin.com/in/shreyas-m-p-2408a7260
 GitHub: https://github.com/Shreyu0301
 Email: shreyas.cta61@gmail.com
 
@@ -741,7 +741,7 @@ footer_content.pack(expand=True, pady=10)
 # Developer name
 dev_label = customtkinter.CTkLabel(
     footer_content,
-    text="👨‍💻 Developed by: Rohan S.",
+    text="👨‍💻 Developed by: Shreyas M P.",
     font=("Segoe UI", 16, "bold"),
     text_color="#FFFFFF"
 )
@@ -761,7 +761,7 @@ email_button = customtkinter.CTkButton(
     hover_color="#2C3E50",
     width=100,
     height=25,
-    command=lambda: __import__('webbrowser').open('mailto:rohanrony8431@gmail.com')
+    command=lambda: __import__('webbrowser').open('mailto:shreyas.cta61@gmail.com')
 )
 email_button.pack(side="left", padx=10)
 
@@ -775,7 +775,7 @@ linkedin_button = customtkinter.CTkButton(
     hover_color="#2C3E50",
     width=100,
     height=25,
-    command=lambda: __import__('webbrowser').open('https://www.linkedin.com/in/rohan-s-43201a2a3')
+    command=lambda: __import__('webbrowser').open('https://www.linkedin.com/in/shreyas-m-p-2408a7260')
 )
 linkedin_button.pack(side="left", padx=10)
 
@@ -789,7 +789,7 @@ github_button = customtkinter.CTkButton(
     hover_color="#2C3E50",
     width=100,
     height=25,
-    command=lambda: __import__('webbrowser').open('https://github.com/Rohan9731')
+    command=lambda: __import__('webbrowser').open('https://github.com/Shreyu0301')
 )
 github_button.pack(side="left", padx=10)
 
