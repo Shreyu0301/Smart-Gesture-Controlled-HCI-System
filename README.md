@@ -39,17 +39,17 @@ An enterprise-grade Human-Computer Interaction (HCI) system that enables **conta
 <table>
   <tr>
     <td align="center">
-      <img src="screenshots/main_interface.png" width="400" alt="Main Interface"/>
+      <img src="screenshots/interface.png" width="400" alt="Application Interface"/>
       <br /><em>Main Application Interface</em>
     </td>
     <td align="center">
-      <img src="screenshots/customization_screen.png" width="400" alt="Customization Screen"/>
+      <img src="screenshots/customisation.png" width="400" alt="Customisation"/>
       <br /><em>Customization Screen</em>
     </td>
   </tr>
   <tr>
     <td align="center">
-      <img src="screenshots/tutorial_screen.png" width="400" alt="Tutorial Mode"/>
+      <img src="screenshots/tutorial.png" width="400" alt="Tutorial"/>
       <br /><em>Tutorial Mode</em>
     </td>
     <td align="center">
