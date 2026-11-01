@@ -1,8 +1,8 @@
 """
 Hand Tracking Module - MediaPipe wrapper for hand landmark detection
 
-Author: Rohan S.
-GitHub: https://github.com/Rohan9731
+Author: Shreyas M P.
+GitHub: https://github.com/Shreyu0301
 """
 
 import cv2

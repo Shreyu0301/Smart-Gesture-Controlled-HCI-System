@@ -1,9 +1,9 @@
 """
 Gesture Control Engine - Core gesture recognition and mode switching
 
-Author: Rohan S.
-GitHub: https://github.com/Rohan9731
-Email: rohanrony8431@gmail.com
+Author: Shreyas M P.
+GitHub: https://github.com/Shreyu0301
+Email: shreyas.cta61@gmail.com
 """
 
 import cv2

@@ -1,8 +1,8 @@
 """
 Virtual Keyboard Module - On-screen QWERTY keyboard with gesture input
 
-Author: Rohan S.
-GitHub: https://github.com/Rohan9731
+Author: Shreyas M P.
+GitHub: https://github.com/Shreyu0301
 """
 
 import cv2

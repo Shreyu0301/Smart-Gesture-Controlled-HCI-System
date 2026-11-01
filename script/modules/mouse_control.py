@@ -1,8 +1,8 @@
 """
 Mouse Control Module - Gesture-based cursor control
 
-Author: Rohan S.
-GitHub: https://github.com/Rohan9731
+Author: Shreyas M P.
+GitHub: https://github.com/Shreyu0301
 """
 
 import math
